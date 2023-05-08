@@ -26,7 +26,7 @@ public class UtenteRestController {
         logger.info("Prendo tutti gli utenti");
         return repository.findAll();
     }
-    @GetMapping("/marco/{id}")
+    @GetMapping("/utente/{id}")
     public Utente trovaUtenteConID(@PathVariable Long id){
         return repository.findById(id).orElseThrow(
                 () -> new UtenteNonTrovato(id));
