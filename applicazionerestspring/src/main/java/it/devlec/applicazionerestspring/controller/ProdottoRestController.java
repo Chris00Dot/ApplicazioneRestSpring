@@ -24,7 +24,7 @@ public class ProdottoRestController
     }
 
     @GetMapping("/prodotti")
-    public List<Prodotto> leggiTuttiGliUtenti()
+    public List<Prodotto> leggiTuttiiProdotti()
     {
         logger.info("Prendo tutti i Prodotti");
         return repository.findAll();
@@ -44,7 +44,7 @@ public class ProdottoRestController
     }
 
     @PutMapping("/prodotto")
-    public Prodotto aggiornaDatiUtente(@RequestBody Prodotto prodotto)
+    public Prodotto aggiornaDatiProdotto(@RequestBody Prodotto prodotto)
     {
         return repository.save(prodotto);
 /*        return repository.findById(id).map(
@@ -70,25 +70,25 @@ public class ProdottoRestController
     }
 
     @GetMapping("/prodotto/ricercatradate")
-    public List<Prodotto> ricercaProdottoTraDate(
+    public List<Prodotto> ricercaProdottoTraDatediProduzione(
             @RequestParam(name = "da") @DateTimeFormat(pattern = "dd-MM-yyyy")
             Date da,
             @RequestParam(name = "a") @DateTimeFormat(pattern = "dd-MM-yyyy")
             Date a
     )
     {
-        return repository.findByDatadiproduzione(da, a);
+        return repository.findByDataDiProduzioneBetween(da, a);
     }
 
-    @GetMapping("/prodotto/ricercadatadiproduzione")
-    public List<Prodotto> ricercaProdottoConDatadiproduzione(
+    @GetMapping("/prodotto/ricercadatadiscadenza")
+    public List<Prodotto> ricercaProdottoConDatadiscadenza(
             @RequestParam(name = "da") @DateTimeFormat(pattern = "dd-MM-yyyy")
             Date da,
             @RequestParam(name = "a") @DateTimeFormat(pattern = "dd-MM-yyyy")
             Date a
     )
     {
-        return repository.findByDatadiregistrazioneBetween(da, a);
+        return repository.findByDataDiScadenzaBetween(da, a);
     }
 
     @GetMapping("/prodotto/costo")
@@ -97,7 +97,7 @@ public class ProdottoRestController
             @RequestParam(name = "max") float max
     )
     {
-        return repository.findByRankingBetween(min, max);
+        return repository.findByCostoBetween(min, max);
     }
 
     @GetMapping("/prodotto/costomax")
@@ -105,11 +105,11 @@ public class ProdottoRestController
             @RequestParam(name = "max") float max
     )
     {
-        return repository.findByRankingLessThan(max);
+        return repository.findByCostoGreaterThan(max);
     }
 
     // Caricamento di file
-    @PostMapping("/caricafile")
+    @PostMapping("/prodotto/caricafile")
     public String caricaFile(@RequestParam("file") MultipartFile file)
     {
         String infoFile = file.getOriginalFilename() + " - " + file.getContentType();

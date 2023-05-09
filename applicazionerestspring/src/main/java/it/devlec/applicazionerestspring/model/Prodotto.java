@@ -4,13 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
-
+@Entity
 public class Prodotto
 {
     @Id
     @GeneratedValue
     private Long id;
-
     private String nome;
     private String descrizione;
     private String marca;
@@ -26,9 +25,8 @@ public class Prodotto
     private int numeroDiSerie;
     private String codiceABarre;
 
-    public Prodotto(Long id, String nome, String descrizione, String marca, Date dataDiAcquisto, Date dataDiProduzione, Date dataDiPrenotazione, Date dataDiScadenza, float costo, String valuta, boolean riciclabile, int numeroModello, int numeroDiVersione, int numeroDiSerie, String codiceABarre)
+    public Prodotto(String nome, String descrizione, String marca, Date dataDiAcquisto, Date dataDiProduzione, Date dataDiPrenotazione, Date dataDiScadenza, float costo, String valuta, boolean riciclabile, int numeroModello, int numeroDiVersione, int numeroDiSerie, String codiceABarre)
     {
-        this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
         this.marca = marca;
@@ -43,6 +41,15 @@ public class Prodotto
         this.numeroDiVersione = numeroDiVersione;
         this.numeroDiSerie = numeroDiSerie;
         this.codiceABarre = codiceABarre;
+    }
+
+    public Prodotto() {
+    }
+
+    public Prodotto(String nome, String marca)
+    {
+        this.nome = nome;
+        this.marca = marca;
     }
 
     public Long getId()
